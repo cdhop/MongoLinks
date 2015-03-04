@@ -6,8 +6,31 @@
   $database = $client->selectDB("mongolinks");
   $session = new MongoSessionManager($database);
   $user = new User($database);
-  $collection = $collection = $database->selectCollection('links');
-  $links = $collection->find()->sort(array('created_at' => -1))->limit(20);
+
+  $map = new MongoCode("function() {".
+           "for (i = 0; i < this.tags.length; i++) {".
+             "emit(this.tags[i], 1);".
+           "}". 
+         "}");
+
+  $reduce = new MongoCode("function(key, values) {".
+           "var count = 0;".
+           "for (var i = 0; i < values.length; i++){".
+             "count += values[i];".
+           "}".
+           "return count;".
+         "}");
+
+  $command = array(
+           'mapreduce' => 'links',
+           'map' => $map,
+           'reduce' => $reduce,
+           'out' => 'tagcount'
+         );
+
+  $database->command($command);
+
+  $tags = iterator_to_array($database->selectCollection('tagcount')->find()->sort(array('value' => -1)));
 
 ?>
 
@@ -33,8 +56,8 @@
             <!--<img class="img-responsive" src="images/filebox.png">-->
           </div>
           <div class="col-xs-9">
-            <h1>MongoLinks <span class="text-muted">&raquo; Online Web Links</span></h1>
-            <p class="lead">Access and manage your links from anywhere!</p>
+            <h1>MongoLinks <span class="text-muted">&raquo; Online Social Links</span></h1>
+            <p class="lead">Share your favorite links online</p>
           </div>
         </div>
       </div>
@@ -46,28 +69,24 @@
         <div class="row">
           <div class="table-responsive">
           <table class="table table-striped" >
-            <legend>Recent Links</legend>
+            <legend>Tags</legend>
             <thead>
               <tr>
-                <th width="*">Title</th>
-                <th width="35%">Description</th>
-		            <th width="25%">Tags</th>
+                <th width="*">Tag</th>
+                <th width="35%">Count</th>
               </tr>
             </thead>
             <tbody>
-              <?php while($link = $links->getNext()): ?>
+              <?php foreach($tags as $tag): ?>
                <tr> 
                  <td>
-                   <a href="<?php echo $link['url']; ?>" target="_blank"><?php echo $link['title']; ?></a>
+                   <a href="/tagview.php?tag=<?php echo $tag['_id']; ?>"><?php echo $tag['_id']; ?></a>
                  </td>
                  <td>
-                   <?php echo $link['description']; ?>
+                   <?php echo $tag['value']; ?>
                  </td>
-                 <td>
-                   <?php echo implode(", ", $link['tags']); ?>
-                </td>
               </tr>
-             <?php endwhile;?>
+             <?php endforeach;?>
            </tbody>
           </table>
           </div>

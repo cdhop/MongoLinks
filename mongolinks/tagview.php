@@ -7,7 +7,11 @@
   $session = new MongoSessionManager($database);
   $user = new User($database);
   $collection = $collection = $database->selectCollection('links');
-  $links = $collection->find()->sort(array('created_at' => -1))->limit(20);
+
+  $tag = $_GET['tag'];
+  $query = array('tags' => $tag);
+
+  $links = $collection->find($query)->sort(array('created_at' => -1))->limit(20);
 
 ?>
 
@@ -25,21 +29,6 @@
   <body>
 
     <?php include('_nav.php'); ?> 
-
-    <div class="intro-block">
-      <div class="container">
-        <div class="row">
-          <div class="col-xs-2">
-            <!--<img class="img-responsive" src="images/filebox.png">-->
-          </div>
-          <div class="col-xs-9">
-            <h1>MongoLinks <span class="text-muted">&raquo; Online Web Links</span></h1>
-            <p class="lead">Access and manage your links from anywhere!</p>
-          </div>
-        </div>
-      </div>
-    </div>
-    <!-- End Intro Text -->
 
     <div class="recent-block">
       <div class="container">
