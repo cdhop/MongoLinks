@@ -44,7 +44,7 @@
             <div class="form-group">
               <?php if(isset($_SESSION['message'])): ?>
                 <div class="col-sm-offset-2 col-sm-10">
-                  <p class="text-info"><?php echo $_SESSION['message']; ?></p>
+                  <p class="text-info"><?php echo htmlentities($_SESSION['message']); ?></p>
                 </div>
                 <?php unset($_SESSION['message']); ?>
               <?php endif; ?>
@@ -102,20 +102,20 @@
               <?php while($link = $links->getNext()): ?>
                <tr> 
                  <td>
-                   <a href="<?php echo $link['url']; ?>" target="_blank"><?php echo $link['title']; ?></a>
+                   <a href="<?php echo htmlentities($link['url']); ?>" target="_blank"><?php echo htmlentities($link['title']); ?></a>
                  </td>
                  <td>
-                   <?php echo $link['description']; ?>
+                   <?php echo htmlentities($link['description']); ?>
                  </td>
                  <td>
-                   <?php echo implode(", ", $link['tags']); ?>
+                   <?php echo htmlentities(implode(", ", $link['tags'])); ?>
                 </td>
                 <td>
-                  <a type="button" class="btn btn-primary" alt="Edit" href="edit.php?id=<?php echo $link['_id']; ?>">
+                  <a type="button" class="btn btn-primary" alt="Edit" href="edit.php?id=<?php echo htmlentities($link['_id']); ?>">
                     <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
                   </a>
 
-                  <a type="button" class="btn btn-danger" alt="Remove" href="delete.php?id=<?php echo $link['_id']; ?>">
+                  <a type="button" class="btn btn-danger" alt="Remove" href="delete.php?id=<?php echo htmlentities($link['_id']); ?>">
                     <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
                   </a>
                 </td>

@@ -57,7 +57,7 @@
               <div class="form-group">
                 <?php if(isset($errorMessage)): ?>
                   <div class="col-sm-offset-2 col-sm-10">
-                    <p class="text-danger"><?php echo $errorMessage; ?></p>
+                    <p class="text-danger"><?php echo htmlentities($errorMessage); ?></p>
                   </div>
                 <?php endif; ?>
               </div>

@@ -58,13 +58,13 @@
               <?php while($link = $links->getNext()): ?>
                <tr> 
                  <td>
-                   <a href="<?php echo $link['url']; ?>" target="_blank"><?php echo $link['title']; ?></a>
+                   <a href="<?php echo htmlentities($link['url']); ?>" target="_blank"><?php echo htmlentities($link['title']); ?></a>
                  </td>
                  <td>
-                   <?php echo $link['description']; ?>
+                   <?php echo htmlentities($link['description']); ?>
                  </td>
                  <td>
-                   <?php echo implode(", ", $link['tags']); ?>
+                   <?php echo htmlentities(implode(", ", $link['tags'])); ?>
                 </td>
               </tr>
              <?php endwhile;?>

@@ -38,7 +38,7 @@
             <div class="form-group">
               <?php if(isset($_SESSION['message'])): ?>
                 <div class="col-sm-offset-2 col-sm-10">
-                  <p class="text-info"><?php echo $_SESSION['message']; ?></p>
+                  <p class="text-info"><?php echo htmletities($_SESSION['message']); ?></p>
                 </div>
                 <?php unset($_SESSION['message']); ?>
               <?php endif; ?>
@@ -46,7 +46,7 @@
             <div class="form-group">
                 <label class="col-sm-2 control-label" for="username">Username </label>
                 <div class="col-sm-10">
-                  <input class="form-control" tabindex="1" type="text" name="username" id="username" autocomplete="off" value="<?php echo $user->__get('username'); ?> " disabled />
+                  <input class="form-control" tabindex="1" type="text" name="username" id="username" autocomplete="off" value="<?php echo htmlentities($user->__get('username')); ?> " disabled />
                 </div>
             </div>
             <div class="form-group">

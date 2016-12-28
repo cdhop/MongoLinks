@@ -42,11 +42,11 @@
         <div class="row">
           <form id="editlink" action="updatelink.php" method="post" accept-charset="utf-8" role="form" class="form-horizontal">
             <legend>Edit Link</legend>
-            <input type="hidden" name="link_id" value="<?php echo $id; ?>"/>
+            <input type="hidden" name="link_id" value="<?php echo htmlentities($id); ?>"/>
             <div class="form-group">
               <?php if(isset($_SESSION['message'])): ?>
                 <div class="col-sm-offset-2 col-sm-10">
-                  <p class="text-info"><?php echo $_SESSION['message']; ?></p>
+                  <p class="text-info"><?php echo htmlentities($_SESSION['message']); ?></p>
                 </div>
                 <?php unset($_SESSION['message']); ?>
               <?php endif; ?>
@@ -54,30 +54,30 @@
             <div class="form-group">
                 <label class="col-sm-2 control-label" for="title">Title</label>
                 <div class="col-sm-10">
-                  <input class="form-control" type="text" name="title" id="title" value="<?php echo $link['title'] ?>" />
+                  <input class="form-control" type="text" name="title" id="title" value="<?php echo htmlentities($link['title']) ?>" />
                 </div>
             </div>
             <div class="form-group">
                 <label class="col-sm-2 control-label" for="url">Address</label>
                 <div class="col-sm-10">
-                  <input class="form-control" type="text" name="url" id="url" value="<?php echo $link['url'] ?>" />
+                  <input class="form-control" type="text" name="url" id="url" value="<?php echo htmlentities($link['url']) ?>" />
                 </div>
             </div>
             <div class="form-group">
                 <label class="col-sm-2 control-label" for="description">Description</label>
                 <div class="col-sm-10">
-                  <input class="form-control" type="text" name="description" id="description" value="<?php echo $link['description'] ?>" />
+                  <input class="form-control" type="text" name="description" id="description" value="<?php echo htmlentities($link['description']) ?>" />
                 </div>
             </div>
             <div class="form-group">
               <label class="col-sm-2 control-label" for="tags">Tags</label>
               <div class="col-sm-10">
-                <input class="form-control" type="text" name="tags" id="tags" value="<?php echo implode(', ', $link['tags'] ); ?>"/>
+                <input class="form-control" type="text" name="tags" id="tags" value="<?php echo htmlentities(implode(', ', $link['tags'] )); ?>"/>
               </div>
             </div>
             <div class="form-group">
               <div class="col-sm-offset-2 col-sm-10">
-                <input type="hidden" name="id" value="<?php echo $file['_id']; ?>">
+                <input type="hidden" name="id" value="<?php echo htmlentities($file['_id']); ?>">
                 <button class="btn btn-default" name="update" tabindex="3" type="submit" value="update">Update Link</button>
               </div>
             </div>

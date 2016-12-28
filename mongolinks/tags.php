@@ -80,10 +80,10 @@
               <?php foreach($tags as $tag): ?>
                <tr> 
                  <td>
-                   <a href="/tagview.php?tag=<?php echo $tag['_id']; ?>"><?php echo $tag['_id']; ?></a>
+                   <a href="/tagview.php?tag=<?php echo htmlentities($tag['_id']); ?>"><?php echo htmlentities($tag['_id']); ?></a>
                  </td>
                  <td>
-                   <?php echo $tag['value']; ?>
+                   <?php echo htmlentities($tag['value']); ?>
                  </td>
               </tr>
              <?php endforeach;?>
